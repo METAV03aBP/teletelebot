@@ -1,6 +1,5 @@
 import telebot
 from telebot import types
-from config import token
 import requests
 from datetime import datetime
 
@@ -20,17 +19,16 @@ f = open('/home/petro/thinks.txt', 'r', encoding='UTF-8')
 thinks = f.read().split('\n')
 f.close()
 
+token = '5129080638:AAHS7gavDnIvrY1G2ix8u0BqIlJV7BcesRk'
 bot = telebot.TeleBot(token)
 
 
 @bot.message_handler(commands=["start"])
-def start(m, res=False):
+def start(m):
 
         markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
         item1 = types.KeyboardButton("Crypto Price")
-        #item2 = types.KeyboardButton("Enter")
         markup.add(item1)
-        #markup.add(item2)
         bot.send_message(m.chat.id,
                          'This is Crypto Price Bot',  reply_markup=markup)
 
@@ -161,43 +159,6 @@ def menu(message):
 
             except Exception as ex:
                 print(ex)
-
-
-
-
-@bot.message_handler(func=lambda message: True)
-def menu(message):
-    if message.text == '1':
-        markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
-        item1 = types.KeyboardButton("1,1")
-        item2 = types.KeyboardButton("2,1")
-        item3 = types.KeyboardButton('3,1')
-        item4 = types.KeyboardButton('4,1')
-        item5 = types.KeyboardButton('5,1')
-        item6 = types.KeyboardButton('6')
-        item7 = types.KeyboardButton("7")
-        item8 = types.KeyboardButton("8")
-        item9 = types.KeyboardButton("9")
-        markup.add(item1)
-        markup.add(item2)
-        markup.add(item3)
-        markup.add(item4)
-        markup.add(item5)
-        markup.add(item6)
-        markup.add(item7)
-        markup.add(item8)
-        markup.add(item9)
-        bot.send_message(message.chat.id, 'Yes \nYes \nYes', reply_markup=markup)
-
-    elif message.text == '2':
-        markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
-        item1 = types.KeyboardButton("1.2")
-        item2 = types.KeyboardButton("2.2")
-        item3 = types.KeyboardButton("3.2")
-        markup.add(item1)
-        markup.add(item2)
-        markup.add(item3)
-        bot.send_message(message.chat.id, 'Yes \nYes \nYes', reply_markup=markup)
 
 
 bot.polling(none_stop=True, interval=0)
